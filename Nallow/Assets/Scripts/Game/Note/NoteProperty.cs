@@ -19,8 +19,7 @@
         {
             Single,
             Long,
-            RightFlick,
-            LeftFlick
+            Flick
         }
     }
 }

@@ -473,6 +473,8 @@ MonoBehaviour:
     type: 3}
   prefabLongNote: {fileID: 7449628401480591517, guid: cd9e1b0593c7f4470b0d6e377f33b88f,
     type: 3}
+  prefabFlickNote: {fileID: 4524999784785855319, guid: 140051c5b862643eab7d9bc070b1f8b2,
+    type: 3}
   gameZone: {fileID: 886156641}
 --- !u!4 &1339784362
 Transform:

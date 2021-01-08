@@ -10,6 +10,7 @@ namespace Player
         #pragma warning disable 0649
         [SerializeField] private GameObject prefabSingleNote;
         [SerializeField] private GameObject prefabLongNote;
+        [SerializeField] private GameObject prefabFlickNote;
         [SerializeField] private GameObject gameZone;
 
         public static readonly float ScrollSpeed = 1.0f;
@@ -31,9 +32,8 @@ namespace Player
                 new NoteProperty(1, 1, 0, NoteType.Single),
                 new NoteProperty(2, 2, 1, NoteType.Single),
                 new NoteProperty(4, 4, 0, NoteType.Single),
-                new NoteProperty(4, 4, 1, NoteType.Single),
                 new NoteProperty(6, 9, 0, NoteType.Long),
-                new NoteProperty(9, 9, 1, NoteType.Single),
+                new NoteProperty(11, 11, 1, NoteType.Flick)
             };
 
             beatmap.tempo = 60f;
@@ -48,6 +48,9 @@ namespace Player
                         break;
                     case NoteType.Long:
                         objNote = Instantiate(prefabLongNote, gameZone.transform);
+                        break;
+                    case NoteType.Flick:
+                        objNote = Instantiate(prefabFlickNote, gameZone.transform);
                         break;
                 }
                 objNote.GetComponent<NoteControllerBase>().noteProperty = _noteProperty;

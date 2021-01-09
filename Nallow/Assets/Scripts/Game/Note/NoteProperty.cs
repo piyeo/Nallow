@@ -4,6 +4,8 @@
     {
         public float beatBegin { get; }
         public float beatEnd { get; }
+        public float secBegin { get; set; }
+        public float secEnd { get; set; }
         public int lane { get; }
         public NoteType noteType { get; }
 

@@ -17,6 +17,9 @@ namespace Player
         public static float CurrentSec = 0f;
         public static float CurrentBeat = 0f;
 
+        //判定されていないノーツ
+        public static List<NoteControllerBase> ExistingNoteControllers;
+
         public static Beatmap beatmap { get; set; }
         private static readonly float startOffset = 5.0f;
 
@@ -24,6 +27,8 @@ namespace Player
         {
             CurrentSec = 0f;
             CurrentBeat = 0f;
+
+            ExistingNoteControllers = new List<NoteControllerBase>();
 
             var beatmapDirectory = Application.dataPath + "/../Beatmaps";
             beatmap = new Beatmap(beatmapDirectory + "/Barduckman_NORMAL.sus");
@@ -43,6 +48,7 @@ namespace Player
                         objNote = Instantiate(prefabFlickNote, gameZone.transform);
                         break;
                 }
+                ExistingNoteControllers.Add(objNote.GetComponent<NoteControllerBase>());
                 objNote.GetComponent<NoteControllerBase>().noteProperty = _noteProperty;
             }
         }

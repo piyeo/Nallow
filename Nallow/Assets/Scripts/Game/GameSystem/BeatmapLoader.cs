@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Note;
+using UnityEngine;
 
 public class BeatmapLoader
 {
@@ -50,6 +51,12 @@ public class BeatmapLoader
         foreach (var line in lines)
         {
             LoadMainDataLine(line);
+        }
+
+        foreach(var noteProperty in noteProperties)
+        {
+            noteProperty.secBegin = Beatmap.ToSec(noteProperty.beatBegin, tempo);
+            noteProperty.secEnd = Beatmap.ToSec(noteProperty.beatEnd, tempo);
         }
     }
 

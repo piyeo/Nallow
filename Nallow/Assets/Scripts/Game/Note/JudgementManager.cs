@@ -16,24 +16,44 @@ public class JudgementManager : MonoBehaviour
             { JudgementType.Bad, 0.30f },
         };
 
-    public void GetTapLeft()
+    public void GetTapDownLeft()
     {
-        GetTap(0);
+        GetTapDown(0);
     }
 
-    public void GetTapRight()
+    public void GetTapDownRight()
     {
-        GetTap(1);
+        GetTapDown(1);
     }
 
-    private void GetTap(int lane)
+    public void GetTapUpLeft()
+    {
+        GetTapUp(0);
+    }
+
+    public void GetTapUpRight()
+    {
+        GetTapUp(1);
+    }
+
+    private void GetTapDown(int lane)
     {
         var nearest = GetNearestNoteControllerBaseInLane(lane);
         if (!nearest) { return; }
 
         var noteSec = nearest.noteProperty.secBegin;
         var differenceSec = Mathf.Abs(noteSec - PlayerController.CurrentSec);
-        nearest.OnTap(GetJudgementType(differenceSec));
+        nearest.OnTapDown(GetJudgementType(differenceSec));
+    }
+
+    private void GetTapUp(int lane)
+    {
+        var processed = GetProcessedNoteControllerBaseInLane(lane);
+        if (!processed) { return; };
+
+        var noteSec = processed.noteProperty.secEnd;
+        var differenceSec = Mathf.Abs(noteSec - PlayerController.CurrentSec);
+        processed.OnTapUp(GetJudgementType(differenceSec));
     }
 
     private JudgementType GetJudgementType(float differenceSec)
@@ -77,6 +97,25 @@ public class JudgementManager : MonoBehaviour
             return null;
         }
     }
+
+    private NoteControllerBase GetProcessedNoteControllerBaseInLane(int lane)
+    {
+        var noteControllers =
+            PlayerController.ExistingNoteControllers
+            .Where(x => x.noteProperty.lane == lane && x.isProcessed);
+        if (noteControllers.Any())
+        {
+            return noteControllers
+                .OrderBy(x => Mathf.Abs(
+                    x.noteProperty.beatBegin - PlayerController.CurrentBeat))
+                .First();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }
 
 public enum JudgementType

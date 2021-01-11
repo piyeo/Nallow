@@ -5,6 +5,9 @@ namespace Note
     public abstract class NoteControllerBase : MonoBehaviour
     {
         public NoteProperty noteProperty;
-        public virtual void OnTap(JudgementType judgementType) { }
+        public bool isProcessed = false;
+
+        public virtual void OnTapDown(JudgementType judgementType) { }
+        public virtual void OnTapUp(JudgementType judgementType) { }
     }
 }

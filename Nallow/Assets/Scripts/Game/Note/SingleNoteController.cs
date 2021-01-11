@@ -33,7 +33,7 @@ namespace Note
             }
         }
 
-        public override void OnTap(JudgementType judgementType)
+        public override void OnTapDown(JudgementType judgementType)
         {
             Debug.Log(judgementType);
 

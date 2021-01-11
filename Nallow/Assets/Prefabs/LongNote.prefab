@@ -127,9 +127,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb57a46dfde648348158abf264d9eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isProcessed: 0
   objBegin: {fileID: 7586112052709783693}
   objEnd: {fileID: 7559079787163630527}
   objTrail: {fileID: 944920843056224938}
+  processedColorEdges:
+    serializedVersion: 2
+    rgba: 4294967295
+  processedColorTrail:
+    serializedVersion: 2
+    rgba: 2533359615
 --- !u!1 &7559079787163630527
 GameObject:
   m_ObjectHideFlags: 0

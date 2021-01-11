@@ -13,7 +13,7 @@ namespace Player
         [SerializeField] private GameObject prefabFlickNote;
         [SerializeField] private GameObject gameZone;
 
-        public static readonly float ScrollSpeed = 1.0f;
+        public static float ScrollSpeed = 3.0f;
         public static float CurrentSec = 0f;
         public static float CurrentBeat = 0f;
 

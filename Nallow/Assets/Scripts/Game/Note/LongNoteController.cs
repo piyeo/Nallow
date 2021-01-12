@@ -61,7 +61,7 @@ namespace Note
                 Destroy(gameObject);
             }
 
-            if (!isProcessed &&
+            if (isProcessed &&
                 noteProperty.secEnd - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Bad])
             {

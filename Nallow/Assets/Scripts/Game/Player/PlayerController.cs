@@ -30,7 +30,7 @@ namespace Player
 
             ExistingNoteControllers = new List<NoteControllerBase>();
 
-            var beatmapDirectory = Application.dataPath + "/../Beatmaps";
+            var beatmapDirectory = Application.streamingAssetsPath + "/Beatmaps";
             beatmap = new Beatmap(beatmapDirectory + "/Barduckman_NORMAL.sus");
 
             foreach (var _noteProperty in beatmap.noteProperties)

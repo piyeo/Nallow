@@ -16,6 +16,12 @@ public class JudgementManager : MonoBehaviour
             { JudgementType.Bad, 0.30f },
         };
 
+    [SerializeField]
+    static float flickDifference = 0.2f;
+
+    private Vector2 flickStartPos;
+    private Vector2 flickEndPos;
+
     public void GetTapDownLeft()
     {
         GetTapDown(0);
@@ -41,6 +47,8 @@ public class JudgementManager : MonoBehaviour
         var nearest = GetNearestNoteControllerBaseInLane(lane);
         if (!nearest) { return; }
 
+        flickStartPos = Input.mousePosition;
+
         var noteSec = nearest.noteProperty.secBegin;
         var differenceSec = Mathf.Abs(noteSec - PlayerController.CurrentSec);
         nearest.OnTapDown(GetJudgementType(differenceSec));
@@ -50,6 +58,16 @@ public class JudgementManager : MonoBehaviour
     {
         var processed = GetProcessedNoteControllerBaseInLane(lane);
         if (!processed) { return; };
+
+        flickEndPos = Input.mousePosition;
+
+        if (processed.GetType() == typeof(FlickNoteController))
+        {
+            bool isFlicked = flickDifference <= Mathf.Abs(flickStartPos.x - flickEndPos.x) ||
+                flickDifference <= Mathf.Abs(flickStartPos.x - flickEndPos.x);
+            processed.OnFlick(isFlicked);
+            return;
+        }
 
         var noteSec = processed.noteProperty.secEnd;
         var differenceSec = Mathf.Abs(noteSec - PlayerController.CurrentSec);

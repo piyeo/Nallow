@@ -11,8 +11,8 @@ namespace Note
         [SerializeField] GameObject objEnd;
         [SerializeField] GameObject objTrail;
 
-        [SerializeField] Color32 processedColorEdges;
-        [SerializeField] Color32 processedColorTrail;
+        [SerializeField] Color32 processedEdgesColor;
+        [SerializeField] Color32 processedTrailColor;
 
         void Update()
         {
@@ -57,7 +57,7 @@ namespace Note
                 noteProperty.secBegin - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Bad])
             {
-                PlayerController.ExistingNoteControllers.Remove(GetComponent<NoteControllerBase>());
+                PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
                 Destroy(gameObject);
             }
 
@@ -66,7 +66,7 @@ namespace Note
                 -JudgementManager.JudgementZone[JudgementType.Bad])
             {
                 isProcessed = false;
-                PlayerController.ExistingNoteControllers.Remove(GetComponent<NoteControllerBase>());
+                PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
                 Destroy(gameObject);
             }
         }
@@ -79,18 +79,22 @@ namespace Note
             {
                 isProcessed = true;
 
-                objBegin.GetComponent<SpriteRenderer>().color = processedColorEdges;
-                objEnd.GetComponent<SpriteRenderer>().color = processedColorEdges;
-                objTrail.GetComponent<SpriteRenderer>().color = processedColorTrail;
+                objBegin.GetComponent<SpriteRenderer>().color = processedEdgesColor;
+                objEnd.GetComponent<SpriteRenderer>().color = processedEdgesColor;
+                objTrail.GetComponent<SpriteRenderer>().color = processedTrailColor;
             }
+
+            AudioManager.instance.PlaySE("Tap");
         }
 
         public override void OnTapUp(JudgementType judgementType)
         {
             Debug.Log(judgementType);
             isProcessed = false;
-            PlayerController.ExistingNoteControllers.Remove(GetComponent<NoteControllerBase>());
+            PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
             Destroy(gameObject);
+
+            AudioManager.instance.PlaySE("Tap");
         }
     }
 }

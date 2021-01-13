@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using Note;
 using static Note.NoteProperty;
 
@@ -8,55 +11,66 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         #pragma warning disable 0649
-        [SerializeField] private GameObject prefabSingleNote;
-        [SerializeField] private GameObject prefabLongNote;
-        [SerializeField] private GameObject prefabFlickNote;
+        [SerializeField] private GameObject ObjSingleNote;
+        [SerializeField] private GameObject ObjLongNote;
+        [SerializeField] private GameObject ObjFlickNote;
         [SerializeField] private GameObject gameZone;
+        [SerializeField] AudioSource audioSource;
 
         public static float ScrollSpeed = 3.0f;
         public static float CurrentSec = 0f;
         public static float CurrentBeat = 0f;
 
         //判定されていないノーツ
-        public static List<NoteControllerBase> ExistingNoteControllers;
+        public static List<NoteControllerBase> AliveNoteControllers;
 
-        public static Beatmap beatmap { get; set; }
+        public static ScoreManager scoreManager { get; set; }
         private static readonly float startOffset = 5.0f;
+
+        [SerializeField] private AudioManager audioManager;
 
         private void Awake()
         {
             CurrentSec = 0f;
             CurrentBeat = 0f;
 
-            ExistingNoteControllers = new List<NoteControllerBase>();
+            AliveNoteControllers = new List<NoteControllerBase>();
 
-            var beatmapDirectory = Application.streamingAssetsPath + "/Beatmaps";
-            beatmap = new Beatmap(beatmapDirectory + "/Barduckman_NORMAL.sus");
+            if(AudioManager.instance == null)
+            {
+                Instantiate(audioManager);
+            }
 
-            foreach (var _noteProperty in beatmap.noteProperties)
+            var scoreDirectory = Application.streamingAssetsPath + "/Scores";
+            scoreManager = new ScoreManager(scoreDirectory + "/Barduckman_NORMAL.sus");
+
+            foreach (var _noteProperty in scoreManager.noteProperties)
             {
                 GameObject objNote = null;
                 switch (_noteProperty.noteType)
                 {
                     case NoteType.Single:
-                        objNote = Instantiate(prefabSingleNote, gameZone.transform);
+                        objNote = Instantiate(ObjSingleNote, gameZone.transform);
                         break;
                     case NoteType.Long:
-                        objNote = Instantiate(prefabLongNote, gameZone.transform);
+                        objNote = Instantiate(ObjLongNote, gameZone.transform);
                         break;
                     case NoteType.Flick:
-                        objNote = Instantiate(prefabFlickNote, gameZone.transform);
+                        objNote = Instantiate(ObjFlickNote, gameZone.transform);
                         break;
                 }
-                ExistingNoteControllers.Add(objNote.GetComponent<NoteControllerBase>());
+                AliveNoteControllers.Add(objNote.GetComponent<NoteControllerBase>());
                 objNote.GetComponent<NoteControllerBase>().noteProperty = _noteProperty;
             }
+            Debug.Log(AudioManager.instance);
+            StartCoroutine(AudioManager.instance.PlayBGM("Barduckman",
+    startOffset + scoreManager.audioOffset));
         }
 
         private void Update()
         {
             CurrentSec = Time.time - startOffset;
-            CurrentBeat = Beatmap.ToBeat(CurrentSec, beatmap.tempo);
+            CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
         }
 
     }

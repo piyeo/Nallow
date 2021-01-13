@@ -62,7 +62,6 @@ namespace Player
                 AliveNoteControllers.Add(objNote.GetComponent<NoteControllerBase>());
                 objNote.GetComponent<NoteControllerBase>().noteProperty = _noteProperty;
             }
-            Debug.Log(AudioManager.instance);
             StartCoroutine(AudioManager.instance.PlayBGM("Barduckman",
     startOffset + scoreManager.audioOffset));
         }

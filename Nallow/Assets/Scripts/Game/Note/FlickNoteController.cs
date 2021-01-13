@@ -38,7 +38,7 @@ namespace Note
             if (noteProperty.secBegin - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Good])
             {
-                PlayerController.ExistingNoteControllers.Remove(GetComponent<NoteControllerBase>());
+                PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
                 Destroy(gameObject);
             }
         }
@@ -59,8 +59,10 @@ namespace Note
             Debug.Log(judgementType + "FlickOK");
 
             isProcessed = false;
-            PlayerController.ExistingNoteControllers.Remove(GetComponent<NoteControllerBase>());
+            PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
             Destroy(gameObject);
+
+            AudioManager.instance.PlaySE("Flick");
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Note
             if (noteProperty.secBegin - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Bad])
             {
-                PlayerController.ExistingNoteControllers.Remove(
+                PlayerController.AliveNoteControllers.Remove(
                     GetComponent<NoteControllerBase>()
                 );
                 Destroy(gameObject);
@@ -39,11 +39,13 @@ namespace Note
 
             if(judgementType != JudgementType.Miss)
             {
-                PlayerController.ExistingNoteControllers.Remove(
+                PlayerController.AliveNoteControllers.Remove(
                     GetComponent<NoteControllerBase>()
                 );
                 Destroy(gameObject);
             }
+
+            AudioManager.instance.PlaySE("Tap");
         }
     }
 }

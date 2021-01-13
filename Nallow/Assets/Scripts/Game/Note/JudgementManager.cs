@@ -44,7 +44,7 @@ public class JudgementManager : MonoBehaviour
 
     private void GetTapDown(int lane)
     {
-        var nearest = GetNearestNoteControllerBaseInLane(lane);
+        var nearest = GetNextNoteControllerBase(lane);
         if (!nearest) { return; }
 
         flickStartPos = Input.mousePosition;
@@ -56,7 +56,7 @@ public class JudgementManager : MonoBehaviour
 
     private void GetTapUp(int lane)
     {
-        var processed = GetProcessedNoteControllerBaseInLane(lane);
+        var processed = GetProcessedNoteControllerBase(lane);
         if (!processed) { return; };
 
         flickEndPos = Input.mousePosition;
@@ -98,10 +98,10 @@ public class JudgementManager : MonoBehaviour
         }
     }
 
-    private NoteControllerBase GetNearestNoteControllerBaseInLane(int lane)
+    private NoteControllerBase GetNextNoteControllerBase(int lane)
     {
         var noteControllers =
-            PlayerController.ExistingNoteControllers
+            PlayerController.AliveNoteControllers
             .Where(x => x.noteProperty.lane == lane);
         if (noteControllers.Any())
         {
@@ -116,10 +116,10 @@ public class JudgementManager : MonoBehaviour
         }
     }
 
-    private NoteControllerBase GetProcessedNoteControllerBaseInLane(int lane)
+    private NoteControllerBase GetProcessedNoteControllerBase(int lane)
     {
         var noteControllers =
-            PlayerController.ExistingNoteControllers
+            PlayerController.AliveNoteControllers
             .Where(x => x.noteProperty.lane == lane && x.isProcessed);
         if (noteControllers.Any())
         {

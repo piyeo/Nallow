@@ -55,7 +55,7 @@ namespace Note
         public override void OnFlick(bool isFlicked)
         {
             if (!isFlicked) { return; }
-            //確定していない
+            if (!gameObject) { return; }
             Debug.Log(judgementType + "FlickOK");
 
             isProcessed = false;

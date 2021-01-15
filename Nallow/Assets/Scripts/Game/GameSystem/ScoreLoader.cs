@@ -9,9 +9,9 @@ using UnityEngine;
 
 public class ScoreLoader
 {
-    private static string MainDataRegax = @"#([0-9]{3})([0-9A-Z]{2})(.*): (.*)";
+    private static string ScoreDataRegax = @"#([0-9]{3})([0-9A-Z]{2})(.*): (.*)";
 
-    private static List<string> HeaderRegax = new List<string>
+    private static List<string> MetaDataRegax = new List<string>
     {
         @"#(TITLE) (.*)",
         @"#(ARTIST) (.*)",
@@ -21,7 +21,7 @@ public class ScoreLoader
         @"#(BPM01):(.*)"
     };
 
-    public Dictionary<string, string> headerData = new Dictionary<string, string>();
+    public Dictionary<string, string> MetaData = new Dictionary<string, string>();
     public List<NoteProperty> noteProperties = new List<NoteProperty>();
     public int tempo { get; }
     public float audioOffset { get; set; }
@@ -40,8 +40,8 @@ public class ScoreLoader
             LoadHeaderLine(line);
         }
 
-        tempo = Convert.ToInt32(headerData["BPM01"]);
-        audioOffset = Convert.ToSingle(headerData["WAVEOFFSET"]);
+        tempo = Convert.ToInt32(MetaData["BPM01"]);
+        audioOffset = Convert.ToSingle(MetaData["WAVEOFFSET"]);
 
         foreach (var line in lines)
         {
@@ -58,14 +58,14 @@ public class ScoreLoader
 
     private void LoadHeaderLine(string line)
     {
-        foreach(var headerPattern in HeaderRegax)
+        foreach(var headerPattern in MetaDataRegax)
         {
             Match match = Regex.Match(line, headerPattern);
             if (match.Success)
             {
                 var headerName = match.Groups[1].Value;
                 var data = match.Groups[2].Value;
-                headerData[headerName] = data.Replace("\"", "");
+                MetaData[headerName] = data.Replace("\"", "");
                 return;
             }
         }
@@ -74,7 +74,7 @@ public class ScoreLoader
     private void LoadMainDataLine(string line)
     {
         if (line.StartsWith("#0000")) { return; }
-        var match = Regex.Match(line, MainDataRegax);
+        var match = Regex.Match(line, ScoreDataRegax);
         if(match.Success)
         {
             //小節番号
@@ -101,8 +101,7 @@ public class ScoreLoader
 
                 if(objNum == "00"){ continue; }
 
-                float beat = measureStartBeat +
-                    (i * measureLengths[measureNum] / objCount);
+                float beat = measureStartBeat + i;
 
                 int lane = 0;
                 if (type[1] == '8') { lane = 1; }

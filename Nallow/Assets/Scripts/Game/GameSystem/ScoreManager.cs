@@ -20,9 +20,9 @@ public class ScoreManager
         noteProperties = scoreLoader.noteProperties;
         tempo = scoreLoader.tempo;
 
-        if (scoreLoader.headerData.ContainsKey("WAVE"))
+        if (scoreLoader.MetaData.ContainsKey("WAVE"))
         {
-            audioFilePath = scoreDirectory + "/BGM/" + scoreLoader.headerData["WAVE"];
+            audioFilePath = scoreDirectory + "/BGM/" + scoreLoader.MetaData["WAVE"];
         }
         audioOffset = scoreLoader.audioOffset;
     }

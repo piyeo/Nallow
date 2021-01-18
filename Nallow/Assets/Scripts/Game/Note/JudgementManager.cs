@@ -44,7 +44,7 @@ public class JudgementManager : MonoBehaviour
 
     private void GetTapDown(int lane)
     {
-        var nearest = GetNextNoteControllerBase(lane);
+        var nearest = GetNextNote(lane);
         if (!nearest) { return; }
 
         flickStartPos = Input.mousePosition;
@@ -56,7 +56,7 @@ public class JudgementManager : MonoBehaviour
 
     private void GetTapUp(int lane)
     {
-        var processed = GetProcessedNoteControllerBase(lane);
+        var processed = GetProcessedNote(lane);
         if (!processed) { return; };
 
         flickEndPos = Input.mousePosition;
@@ -94,11 +94,11 @@ public class JudgementManager : MonoBehaviour
         }
         else
         {
-            return JudgementType.Miss;
+            return JudgementType.None;
         }
     }
 
-    private NoteControllerBase GetNextNoteControllerBase(int lane)
+    private NoteControllerBase GetNextNote(int lane)
     {
         var noteControllers =
             PlayerController.AliveNoteControllers
@@ -116,7 +116,7 @@ public class JudgementManager : MonoBehaviour
         }
     }
 
-    private NoteControllerBase GetProcessedNoteControllerBase(int lane)
+    private NoteControllerBase GetProcessedNote(int lane)
     {
         var noteControllers =
             PlayerController.AliveNoteControllers
@@ -138,6 +138,7 @@ public class JudgementManager : MonoBehaviour
 
 public enum JudgementType
 {
+    None,
     Miss,
     Perfect,
     Great,

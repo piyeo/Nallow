@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class ScoreLoader
 {
-    private static string ScoreDataRegax = @"#([0-9]{3})([0-9A-Z]{2})(.*): (.*)";
+    private static string MainDataRegax = @"#([0-9]{3})([0-9A-Z]{2})(.*): (.*)";
 
     private static List<string> MetaDataRegax = new List<string>
     {
@@ -74,7 +74,7 @@ public class ScoreLoader
     private void LoadMainDataLine(string line)
     {
         if (line.StartsWith("#0000")) { return; }
-        var match = Regex.Match(line, ScoreDataRegax);
+        var match = Regex.Match(line, MainDataRegax);
         if(match.Success)
         {
             //小節番号
@@ -101,7 +101,8 @@ public class ScoreLoader
 
                 if(objNum == "00"){ continue; }
 
-                float beat = measureStartBeat + i;
+                float beat = measureStartBeat +
+                    (i * measureLengths[measureNum] / objCount);
 
                 int lane = 0;
                 if (type[1] == '8') { lane = 1; }
@@ -112,13 +113,13 @@ public class ScoreLoader
                         if(objNum[0] == '1')
                         {
                             noteProperties.Add(
-                                new NoteProperty(beat, beat, lane, NoteProperty.NoteType.Single)
+                                new NoteProperty(beat, beat, lane, NoteType.Single)
                             );
                         }
                         else if(objNum[0] == '3')
                         {
                             noteProperties.Add(
-                                new NoteProperty(beat, beat, lane, NoteProperty.NoteType.Flick)
+                                new NoteProperty(beat, beat, lane, NoteType.Flick)
                             );
                         }
                         break;
@@ -132,7 +133,7 @@ public class ScoreLoader
                         {
                             noteProperties.Add(
                                 new NoteProperty(
-                                    longNoteBegin, beat, lane, NoteProperty.NoteType.Long)
+                                    longNoteBegin, beat, lane, NoteType.Long)
                             );
                         }
                         break;

@@ -26,6 +26,7 @@ namespace Note
             if (noteProperty.secBegin - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Bad])
             {
+                GameEvaluation.Evaluation(JudgementType.Miss);
                 PlayerController.AliveNoteControllers.Remove(
                     GetComponent<NoteControllerBase>()
                 );
@@ -35,10 +36,9 @@ namespace Note
 
         public override void OnTapDown(JudgementType judgementType)
         {
-            Debug.Log(judgementType);
-
-            if(judgementType != JudgementType.Miss)
+            if(judgementType != JudgementType.None)
             {
+                GameEvaluation.Evaluation(judgementType);
                 PlayerController.AliveNoteControllers.Remove(
                     GetComponent<NoteControllerBase>()
                 );

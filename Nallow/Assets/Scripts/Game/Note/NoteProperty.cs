@@ -16,12 +16,12 @@
             this.lane = lane;
             this.noteType = noteType;
         }
+    }
 
-        public enum NoteType
-        {
-            Single,
-            Long,
-            Flick
-        }
+    public enum NoteType
+    {
+        Single,
+        Long,
+        Flick
     }
 }

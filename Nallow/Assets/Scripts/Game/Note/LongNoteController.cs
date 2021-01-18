@@ -57,6 +57,9 @@ namespace Note
                 noteProperty.secBegin - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Bad])
             {
+                //始点と終点の分
+                GameEvaluation.Evaluation(JudgementType.Miss);
+                GameEvaluation.Evaluation(JudgementType.Miss);
                 PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
                 Destroy(gameObject);
             }
@@ -65,6 +68,7 @@ namespace Note
                 noteProperty.secEnd - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Bad])
             {
+                GameEvaluation.Evaluation(JudgementType.Miss);
                 isProcessed = false;
                 PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
                 Destroy(gameObject);
@@ -73,10 +77,10 @@ namespace Note
 
         public override void OnTapDown(JudgementType judgementType)
         {
-            Debug.Log(judgementType);
-
-            if(judgementType != JudgementType.Miss)
+            if(judgementType != JudgementType.None)
             {
+                GameEvaluation.Evaluation(judgementType);
+
                 isProcessed = true;
 
                 objBegin.GetComponent<SpriteRenderer>().color = processedEdgesColor;
@@ -89,7 +93,14 @@ namespace Note
 
         public override void OnTapUp(JudgementType judgementType)
         {
-            Debug.Log(judgementType);
+            if(judgementType != JudgementType.None)
+            {
+                GameEvaluation.Evaluation(judgementType);
+            }
+            else
+            {
+                GameEvaluation.Evaluation(JudgementType.Miss);
+            }
             isProcessed = false;
             PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
             Destroy(gameObject);

@@ -38,6 +38,7 @@ namespace Note
             if (noteProperty.secBegin - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Good])
             {
+                Debug.Log(JudgementType.Miss);
                 PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
                 Destroy(gameObject);
             }
@@ -46,7 +47,7 @@ namespace Note
         public override void OnTapDown(JudgementType _judgementType)
         {
             judgementType = _judgementType;
-            if (judgementType != JudgementType.Miss)
+            if (judgementType != JudgementType.None)
             {
                 isProcessed = true;
             }
@@ -58,6 +59,14 @@ namespace Note
             if (!gameObject) { return; }
             Debug.Log(judgementType + "FlickOK");
 
+            if(judgementType != JudgementType.None)
+            {
+                GameEvaluation.Evaluation(judgementType);
+            }
+            else
+            {
+                GameEvaluation.Evaluation(JudgementType.Miss);
+            }
             isProcessed = false;
             PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
             Destroy(gameObject);

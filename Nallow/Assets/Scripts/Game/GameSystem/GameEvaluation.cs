@@ -32,6 +32,7 @@ public class GameEvaluation : MonoBehaviour
     public static float currentPoints;
     public static int currentCombo;
     public static int maxCombo;
+    public static string currentJudge = "None";
     public static Dictionary<JudgementType, int> JudgementCounts =
         new Dictionary<JudgementType, int>();
 
@@ -61,15 +62,22 @@ public class GameEvaluation : MonoBehaviour
 
     public static void Evaluation(JudgementType judgementType)
     {
-        if(judgementType == JudgementType.None) { return; }
-        if(judgementType == JudgementType.Miss)
+        currentJudge = judgementType.ToString();
+
+        if (judgementType == JudgementType.None) { return; }
+        else if(judgementType == JudgementType.Perfect ||
+                judgementType == JudgementType.Great)
+        {
+            currentCombo++;
+        }
+        else
         {
             currentCombo = 0;
-            JudgementCounts[judgementType]++;
-            return;
         }
 
-        currentCombo++;
+        JudgementCounts[judgementType]++;
+
+        if (judgementType == JudgementType.Miss) { return; }
 
         float comboRate = ComboRates.Where(x => x.Key <= currentCombo)
             .Last().Value;

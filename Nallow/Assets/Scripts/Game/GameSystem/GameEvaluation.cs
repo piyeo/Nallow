@@ -77,7 +77,11 @@ public class GameEvaluation : MonoBehaviour
 
         JudgementCounts[judgementType]++;
 
+        GameUI.JudgeAnimation();
+
         if (judgementType == JudgementType.Miss) { return; }
+
+        GameUI.ComboAnimation();
 
         float comboRate = ComboRates.Where(x => x.Key <= currentCombo)
             .Last().Value;

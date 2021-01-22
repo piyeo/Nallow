@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameUI : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text pointsText;
     [SerializeField] private Text comboText;
     [SerializeField] private Text judgeText;
+    [SerializeField] private GameObject objComboValue;
+    [SerializeField] private GameObject objJudgeValue;
+
+    private Text comboValueText;
+    private RectTransform objComboValueRectTransform;
+    private RectTransform objJudgeValueRectTransform;
 
     private readonly string perfectColor = "#FF61C4";
     private readonly string greatColor = "#FF9662";
@@ -32,11 +39,33 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    private static Sequence comboSequence;
+    private static Sequence judgeSequence;
+
     private void Start()
     {
+        comboValueText = objComboValue.GetComponent<Text>();
         pointsText.text = "score\n0";
         comboText.text = "";
+        comboValueText.text = "";
         judgeText.text = "";
+
+        //アニメーション用
+        objComboValueRectTransform = objComboValue.GetComponent<RectTransform>();
+        objJudgeValueRectTransform = objJudgeValue.GetComponent<RectTransform>();
+        DOTween.Init();
+        comboSequence = DOTween.Sequence()
+            .Append(objComboValueRectTransform.DOScale(new Vector3(2f, 2f, 2f), 0.1f))
+            .Append(objComboValueRectTransform.DOScale(new Vector3(1f, 1f, 1f), 0.1f))
+            .Pause()
+            .SetAutoKill(false)
+            .SetLink(objComboValue);
+        judgeSequence = DOTween.Sequence()
+            .Append(objJudgeValueRectTransform.DOScale(new Vector3(1.5f, 1.5f, 2f), 0.1f))
+            .Append(objJudgeValueRectTransform.DOScale(new Vector3(1f, 1f, 1f), 0.1f))
+            .Pause()
+            .SetAutoKill(false)
+            .SetLink(objJudgeValue);
     }
 
     private void Update()
@@ -68,12 +97,24 @@ public class GameUI : MonoBehaviour
         if (GameEvaluation.currentCombo == 0)
         {
             comboText.text = "";
+            comboValueText.text = "";
         }
         else
         {
-            comboText.text = "combo\n" + GameEvaluation.currentCombo.ToString();
+            comboText.text = "combo";
+            comboValueText.text = GameEvaluation.currentCombo.ToString();
         }
 
         pointsText.text = "score\n" + Mathf.Floor(GameEvaluation.currentPoints).ToString();
+    }
+
+    public static void ComboAnimation()
+    {
+        comboSequence.Restart();
+    }
+
+    public static void JudgeAnimation()
+    {
+        judgeSequence.Restart();
     }
 }

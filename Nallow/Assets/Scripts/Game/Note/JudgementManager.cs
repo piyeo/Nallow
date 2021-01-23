@@ -64,7 +64,7 @@ public class JudgementManager : MonoBehaviour
         if (processed.GetType() == typeof(FlickNoteController))
         {
             bool isFlicked = flickDifference <= Mathf.Abs(flickStartPos.x - flickEndPos.x) ||
-                flickDifference <= Mathf.Abs(flickStartPos.x - flickEndPos.x);
+                flickDifference <= Mathf.Abs(flickStartPos.y - flickEndPos.y);
             processed.OnFlick(isFlicked);
             return;
         }

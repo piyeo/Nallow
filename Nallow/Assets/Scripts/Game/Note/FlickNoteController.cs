@@ -50,6 +50,7 @@ namespace Note
             if (judgementType != JudgementType.None)
             {
                 isProcessed = true;
+                AudioManager.instance.PlaySE("Flick");
             }
         }
 
@@ -57,7 +58,6 @@ namespace Note
         {
             if (!isFlicked) { return; }
             if (!gameObject) { return; }
-            Debug.Log(judgementType + "FlickOK");
 
             if(judgementType != JudgementType.None)
             {
@@ -71,7 +71,6 @@ namespace Note
             PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
             Destroy(gameObject);
 
-            AudioManager.instance.PlaySE("Flick");
         }
     }
 }

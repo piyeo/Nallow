@@ -24,8 +24,6 @@ namespace Player
         public static ScoreManager scoreManager { get; set; }
         private static readonly float startOffset = 5.0f;
 
-        [SerializeField] private AudioManager audioManager;
-
         private void Awake()
         {
             CurrentSec = 0f;
@@ -33,13 +31,8 @@ namespace Player
 
             AliveNoteControllers = new List<NoteControllerBase>();
 
-            if(AudioManager.instance == null)
-            {
-                Instantiate(audioManager);
-            }
-
-            var scoreDirectory = Application.streamingAssetsPath + "/Scores";
-            scoreManager = new ScoreManager(scoreDirectory + "/Barduckman_NORMAL.sus");
+            //var scoreDirectory = Application.streamingAssetsPath + "/Scores";
+            //scoreManager = new ScoreManager(scoreDirectory + "/Barduckman_NORMAL.sus");
 
             foreach (var _noteProperty in scoreManager.noteProperties)
             {
@@ -65,7 +58,7 @@ namespace Player
 
         private void Update()
         {
-            CurrentSec = Time.time - startOffset;
+            CurrentSec = Time.timeSinceLevelLoad -startOffset;
             CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
         }
 

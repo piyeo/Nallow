@@ -705,7 +705,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 328596631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1135418427}
+        m_MethodName: PressUpButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &358019733
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,7 +974,7 @@ GameObject:
   - component: {fileID: 828152473}
   - component: {fileID: 828152472}
   m_Layer: 5
-  m_Name: Buttom Panel
+  m_Name: Bottom Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1301,7 +1312,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 943806860}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1135418427}
+        m_MethodName: PressDownButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1026517176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1430,7 @@ RectTransform:
   - {fileID: 358019734}
   - {fileID: 935448416}
   m_Father: {fileID: 1135418425}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1427,6 +1449,8 @@ GameObject:
   - component: {fileID: 1135418424}
   - component: {fileID: 1135418423}
   - component: {fileID: 1135418422}
+  - component: {fileID: 1135418426}
+  - component: {fileID: 1135418427}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1507,10 +1531,10 @@ RectTransform:
   m_Children:
   - {fileID: 328596630}
   - {fileID: 943806859}
-  - {fileID: 1043365809}
-  - {fileID: 1496229520}
   - {fileID: 2135999926}
   - {fileID: 1388074361}
+  - {fileID: 1043365809}
+  - {fileID: 1496229520}
   - {fileID: 1311285909}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1520,6 +1544,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1135418426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135418421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419f32728972c4703b9e7972ce63742a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modePanels: {fileID: 1043365808}
+  musicPanels: {fileID: 1496229519}
+  difficultyPanels: {fileID: 1311285908}
+  musicJacket: {fileID: 2128348811}
+  musicText: {fileID: 189655450}
+  musicDataBase: {fileID: 11400000, guid: da9f815d03e3b4aeaa8857cb57dd1ac7, type: 2}
+  audioManager: {fileID: 6459091870178676312, guid: 455a926e28cf64a4b8c34631edf4c567,
+    type: 3}
+--- !u!114 &1135418427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135418421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50ad97de6ef144eda485e7ddc8b5690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1222747604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1741,7 @@ GameObject:
   - component: {fileID: 1288835264}
   - component: {fileID: 1288835263}
   m_Layer: 5
-  m_Name: Author Text
+  m_Name: Difficulty Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1906,7 +1962,7 @@ RectTransform:
   m_Children:
   - {fileID: 157743819}
   m_Father: {fileID: 1135418425}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1955,7 +2011,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1388074363}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1135418427}
+        m_MethodName: PressBackButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1388074363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,7 +2169,7 @@ RectTransform:
   - {fileID: 1026517177}
   - {fileID: 828152471}
   m_Father: {fileID: 1135418425}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2289,14 +2356,14 @@ RectTransform:
   m_GameObject: {fileID: 1734282979}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 10, z: 1}
+  m_LocalScale: {x: 1, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 828152471}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -134.99998, y: -439}
+  m_AnchoredPosition: {x: 412, y: -439}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1734282981
@@ -2325,7 +2392,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 100
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -2583,14 +2650,14 @@ RectTransform:
   m_GameObject: {fileID: 1947974059}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 10, z: 1}
+  m_LocalScale: {x: 1, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 1026517177}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -135, y: -465}
+  m_AnchoredPosition: {x: 416, y: -465}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1947974061
@@ -2617,9 +2684,9 @@ MonoBehaviour:
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 100
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -2646,7 +2713,7 @@ GameObject:
   - component: {fileID: 2128348812}
   - component: {fileID: 2128348811}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Jacket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2740,7 +2807,7 @@ RectTransform:
   m_Children:
   - {fileID: 563693317}
   m_Father: {fileID: 1135418425}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2789,7 +2856,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2135999928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1135418427}
+        m_MethodName: PressSelectButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2135999928
 MonoBehaviour:
   m_ObjectHideFlags: 0

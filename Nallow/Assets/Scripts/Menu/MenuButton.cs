@@ -5,24 +5,23 @@ using UnityEngine.UI;
 
 public class MenuButton : MonoBehaviour
 {
-    //(表示されている画面ごとに処理が違う)
-    void PressUpButton()
+    public void PressUpButton()
     {
-        //リスト的なものを+1
+        GameMenu.instance.UpIndex();
     }
 
-    void PressDownButton()
+    public void PressDownButton()
     {
-        //リスト的なものを-1
+        GameMenu.instance.DownIndex();
     }
 
-    void PressBackButton()
+    public void PressBackButton()
     {
-        //前の画面に遷移(Title → Mode → Music → Difficulty)
+        GameMenu.instance.Back();
     }
 
-    void PressSelectButton()
+    public void PressSelectButton()
     {
-        //決定(表示されている画面ごとに処理が違う)
+        GameMenu.instance.Select();
     }
 }

@@ -6,7 +6,7 @@ namespace Note
 {
     public class LongNoteController : NoteControllerBase
     {
-        #pragma warning disable 0649
+#pragma warning disable 0649
         [SerializeField] GameObject objBegin;
         [SerializeField] GameObject objEnd;
         [SerializeField] GameObject objTrail;

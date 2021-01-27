@@ -88,10 +88,6 @@ public class GameEvaluation : MonoBehaviour
         var addPoints = basePoints * difficultyRate /
             (allNotesCount * JudgementRates[judgementType] * comboRate);
         currentPoints += addPoints;
-
-        Debug.Log(currentCombo);
-        Debug.Log(currentPoints);
-
         JudgementCounts[judgementType]++;
 
     }

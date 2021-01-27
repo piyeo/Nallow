@@ -58,7 +58,6 @@ namespace Note
         {
             if (!isFlicked) { return; }
             if (!gameObject) { return; }
-            Debug.Log(judgementType + "FlickOK");
 
             if(judgementType != JudgementType.None)
             {

@@ -7,12 +7,12 @@ public class MenuButton : MonoBehaviour
 {
     public void PressUpButton()
     {
-        GameMenu.instance.UpIndex();
+        GameMenu.instance.Up();
     }
 
     public void PressDownButton()
     {
-        GameMenu.instance.DownIndex();
+        GameMenu.instance.Down();
     }
 
     public void PressBackButton()

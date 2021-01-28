@@ -1408,6 +1408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1043365809}
+  - component: {fileID: 1043365810}
   m_Layer: 5
   m_Name: Mode Panels
   m_TagString: Untagged
@@ -1437,6 +1438,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1043365810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043365808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfb722721efa478f880f60ddd750711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels: {fileID: 1043365808}
+  topText: {fileID: 1667943058}
+  bottomText: {fileID: 1346717627}
+  musicDataBase: {fileID: 11400000, guid: da9f815d03e3b4aeaa8857cb57dd1ac7, type: 2}
+  centerText: {fileID: 60035796}
 --- !u!1 &1135418421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,14 +1574,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419f32728972c4703b9e7972ce63742a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modePanels: {fileID: 1043365808}
-  musicPanels: {fileID: 1496229519}
-  difficultyPanels: {fileID: 1311285908}
-  musicJacket: {fileID: 2128348811}
-  musicText: {fileID: 189655450}
   musicDataBase: {fileID: 11400000, guid: da9f815d03e3b4aeaa8857cb57dd1ac7, type: 2}
   audioManager: {fileID: 6459091870178676312, guid: 455a926e28cf64a4b8c34631edf4c567,
     type: 3}
+  modePanel: {fileID: 1043365808}
+  musicPanel: {fileID: 1496229519}
+  difficultyPanel: {fileID: 1311285908}
 --- !u!114 &1135418427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1822,13 +1838,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1311285909}
+  - component: {fileID: 1311285910}
   m_Layer: 5
   m_Name: Difficulty Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1311285909
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1852,6 +1869,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1311285910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311285908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdc89bb587ec4915bf35994785d9115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels: {fileID: 1311285908}
+  topText: {fileID: 220772648}
+  bottomText: {fileID: 1222747606}
+  musicDataBase: {fileID: 0}
+  centerText: {fileID: 102825094}
+  musicText: {fileID: 189655450}
 --- !u!1 &1346717625
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,13 +2182,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1496229520}
+  - component: {fileID: 1496229521}
   m_Layer: 5
   m_Name: Music Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1496229520
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2176,6 +2212,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1496229521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496229519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db61ed1f93ee430387d89d0f484d917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels: {fileID: 1496229519}
+  topText: {fileID: 1947974061}
+  bottomText: {fileID: 1734282981}
+  musicDataBase: {fileID: 11400000, guid: da9f815d03e3b4aeaa8857cb57dd1ac7, type: 2}
+  titleText: {fileID: 1483302461}
+  difficultyText: {fileID: 1288835263}
+  musicJacket: {fileID: 2128348811}
 --- !u!1 &1667943056
 GameObject:
   m_ObjectHideFlags: 0

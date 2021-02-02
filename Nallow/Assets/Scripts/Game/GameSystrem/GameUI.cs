@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Player;
 
 public class GameUI : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text judgeText;
     [SerializeField] private GameObject objComboValue;
     [SerializeField] private GameObject objJudgeValue;
+    [SerializeField] private GameObject resultPanel;
 
     private Text comboValueText;
     private RectTransform objComboValueRectTransform;
@@ -25,6 +27,8 @@ public class GameUI : MonoBehaviour
     private readonly string missColor = "#9D9D9D";
 
     private Color32 judgeColor;
+
+    public static GameUI instance;
 
     private Color GetJudgeColor(string colorCode)
     {
@@ -39,12 +43,14 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private static Sequence comboSequence;
-    private static Sequence judgeSequence;
+    private Sequence comboSequence;
+    private Sequence judgeSequence;
 
     private void Start()
     {
+        instance = this;
         comboValueText = objComboValue.GetComponent<Text>();
+        resultPanel.SetActive(false);
         pointsText.text = "score\n0";
         comboText.text = "";
         comboValueText.text = "";
@@ -108,13 +114,19 @@ public class GameUI : MonoBehaviour
         pointsText.text = "score\n" + Mathf.Floor(GameEvaluation.currentPoints).ToString();
     }
 
-    public static void ComboAnimation()
+    public void ComboAnimation()
     {
         comboSequence.Restart();
     }
 
-    public static void JudgeAnimation()
+    public void JudgeAnimation()
     {
         judgeSequence.Restart();
+    }
+
+    public IEnumerator ShowResult()
+    {
+        yield return new WaitForSeconds(3.0f);
+        resultPanel.SetActive(true);
     }
 }

@@ -12,7 +12,6 @@ namespace Player
         [SerializeField] private GameObject ObjLongNote;
         [SerializeField] private GameObject ObjFlickNote;
         [SerializeField] private GameObject gameZone;
-        [SerializeField] AudioSource audioSource;
 
         public static float ScrollSpeed = 3.0f;
         public static float CurrentSec = 0f;
@@ -24,15 +23,14 @@ namespace Player
         public static ScoreManager scoreManager { get; set; }
         private static readonly float startOffset = 5.0f;
 
+        private static bool gameEnd;
+
         private void Awake()
         {
             CurrentSec = 0f;
             CurrentBeat = 0f;
 
             AliveNoteControllers = new List<NoteControllerBase>();
-
-            //var scoreDirectory = Application.streamingAssetsPath + "/Scores";
-            //scoreManager = new ScoreManager(scoreDirectory + "/Barduckman_NORMAL.sus");
 
             foreach (var _noteProperty in scoreManager.noteProperties)
             {
@@ -60,6 +58,16 @@ namespace Player
         {
             CurrentSec = Time.timeSinceLevelLoad -startOffset;
             CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
+            //if(ノーツが全部流れたら)
+            //ちょっと待って
+            //パネルを出して
+            //結果を表示
+            //タップしたら終了
+            //メニューに戻る
+            if (AliveNoteControllers.Count == 0)
+            {
+                StartCoroutine(GameUI.instance.ShowResult());
+            }
         }
 
     }

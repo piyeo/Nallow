@@ -45,6 +45,8 @@ public class GameMenu : MonoBehaviour
             Instantiate(audioManager);
         }
 
+        AudioManager.instance.PlayBGM("Menu");
+
         musicCenterIndexBuffer = 0;
         musicTopIndexBuffer = musicDataBase.GetMusicList().Count - 1;
 
@@ -69,6 +71,7 @@ public class GameMenu : MonoBehaviour
 
     public void Select()
     {
+        AudioManager.instance.PlaySE("Select");
         switch (menuState)
         {
             case MenuState.Mode:
@@ -82,6 +85,7 @@ public class GameMenu : MonoBehaviour
             case MenuState.Difficulty:
                 difficultyMenuState.DeactivatePanel();
                 LoadScore();
+                AudioManager.instance.StopMusic();
                 SceneManager.LoadScene("GameScene");
                 break;
         }
@@ -89,6 +93,7 @@ public class GameMenu : MonoBehaviour
 
     public void Back()
     {
+        AudioManager.instance.PlaySE("Change");
         switch (menuState)
         {
             case MenuState.Mode:
@@ -107,6 +112,7 @@ public class GameMenu : MonoBehaviour
 
     public void Up()
     {
+        AudioManager.instance.PlaySE("Change");
         switch (menuState)
         {
             case MenuState.Mode:
@@ -122,6 +128,7 @@ public class GameMenu : MonoBehaviour
     }
 
     public void Down() {
+        AudioManager.instance.PlaySE("Change");
         switch (menuState)
         {
             case MenuState.Mode:

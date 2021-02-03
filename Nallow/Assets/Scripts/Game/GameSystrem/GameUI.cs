@@ -96,7 +96,7 @@ public class GameUI : MonoBehaviour
                 judgeColor = GetJudgeColor(missColor);
                 break;
         }
-        if (GameEvaluation.currentJudge != "None" && PlayerController.AliveNoteControllers.Count != 0)
+        if (GameEvaluation.currentJudge != "None")
         {
             judgeText.text = GameEvaluation.currentJudge.ToString();
             judgeText.color = judgeColor;
@@ -130,6 +130,7 @@ public class GameUI : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
         judgeText.text = "";
+        GameEvaluation.currentJudge = "None";
         AudioManager.instance.PlaySE("GameEnd");
         resultPanel.SetActive(true);
         string perfect = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Perfect]);

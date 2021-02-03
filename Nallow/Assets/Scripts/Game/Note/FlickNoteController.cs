@@ -35,10 +35,17 @@ namespace Note
 
         void CheckMiss()
         {
-            if (noteProperty.secBegin - PlayerController.CurrentSec <
+            if (!isProcessed && noteProperty.secBegin - PlayerController.CurrentSec <
                 -JudgementManager.JudgementZone[JudgementType.Good])
             {
-                Debug.Log(JudgementType.Miss);
+                GameEvaluation.Evaluation(JudgementType.Miss);
+                PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
+                Destroy(gameObject);
+            }
+            else if (isProcessed && noteProperty.secBegin - PlayerController.CurrentSec <
+    -JudgementManager.JudgementZone[JudgementType.Good])
+            {
+                GameEvaluation.Evaluation(JudgementType.Miss);
                 PlayerController.AliveNoteControllers.Remove(GetComponent<NoteControllerBase>());
                 Destroy(gameObject);
             }

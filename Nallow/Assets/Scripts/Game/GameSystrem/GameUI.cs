@@ -9,12 +9,9 @@ public class GameUI : MonoBehaviour
 {
 #pragma warning disable 0414
 #pragma warning disable 0649
-    [SerializeField] private Text pointsText;
-    [SerializeField] private Text comboText;
-    [SerializeField] private Text judgeText;
-    [SerializeField] private GameObject objComboValue;
-    [SerializeField] private GameObject objJudgeValue;
-    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private Text pointsText, comboText, judgeText;
+    [SerializeField] private Text JudgeResultText, ReturnText, ResultText;
+    [SerializeField] private GameObject objComboValue, objJudgeValue, resultPanel;
 
     private Text comboValueText;
     private RectTransform objComboValueRectTransform;
@@ -76,6 +73,11 @@ public class GameUI : MonoBehaviour
 
     private void Update()
     {
+        showPlayingUI();
+    }
+
+    private void showPlayingUI()
+    {
         switch (GameEvaluation.currentJudge)
         {
             case "Perfect":
@@ -94,7 +96,7 @@ public class GameUI : MonoBehaviour
                 judgeColor = GetJudgeColor(missColor);
                 break;
         }
-        if (GameEvaluation.currentJudge != "None")
+        if (GameEvaluation.currentJudge != "None" && PlayerController.AliveNoteControllers.Count != 0)
         {
             judgeText.text = GameEvaluation.currentJudge.ToString();
             judgeText.color = judgeColor;
@@ -127,6 +129,16 @@ public class GameUI : MonoBehaviour
     public IEnumerator ShowResult()
     {
         yield return new WaitForSeconds(3.0f);
+        judgeText.text = "";
+        AudioManager.instance.PlaySE("GameEnd");
         resultPanel.SetActive(true);
+        string perfect = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Perfect]);
+        string great = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Great]);
+        string good = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Good]);
+        string bad = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Bad]);
+        string miss = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Miss]);
+        JudgeResultText.text = string.Format(JudgeResultText.text,perfect, great, good, bad, miss);
+        ResultText.text = GameEvaluation.GetResult();
+        ReturnText.text = "画面タップで戻る";
     }
 }

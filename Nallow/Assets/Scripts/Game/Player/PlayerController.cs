@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Note;
 
 namespace Player
@@ -56,17 +57,23 @@ namespace Player
 
         private void Update()
         {
-            CurrentSec = Time.timeSinceLevelLoad -startOffset;
-            CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
-            //if(ノーツが全部流れたら)
-            //ちょっと待って
-            //パネルを出して
-            //結果を表示
-            //タップしたら終了
-            //メニューに戻る
-            if (AliveNoteControllers.Count == 0)
+            if (!gameEnd)
             {
-                StartCoroutine(GameUI.instance.ShowResult());
+                CurrentSec = Time.timeSinceLevelLoad - startOffset;
+                CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
+                if (AliveNoteControllers.Count == 0)
+                {
+                    gameEnd = true;
+                    StartCoroutine(GameUI.instance.ShowResult());
+                }
+                return;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                gameEnd = false;
+                AudioManager.instance.StopMusic();
+                SceneManager.LoadScene("MenuScene");
             }
         }
 

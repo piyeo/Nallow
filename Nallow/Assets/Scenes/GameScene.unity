@@ -1271,6 +1271,9 @@ MonoBehaviour:
   pointsText: {fileID: 1453234100}
   comboText: {fileID: 1155482440}
   judgeText: {fileID: 1838268215}
+  JudgeResultText: {fileID: 1201765189}
+  ReturnText: {fileID: 1157412329}
+  ResultText: {fileID: 859186623}
   objComboValue: {fileID: 210054720}
   objJudgeValue: {fileID: 1838268213}
   resultPanel: {fileID: 1185936785}

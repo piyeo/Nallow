@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Note;
 
 namespace Player
@@ -12,7 +13,6 @@ namespace Player
         [SerializeField] private GameObject ObjLongNote;
         [SerializeField] private GameObject ObjFlickNote;
         [SerializeField] private GameObject gameZone;
-        [SerializeField] AudioSource audioSource;
 
         public static float ScrollSpeed = 3.0f;
         public static float CurrentSec = 0f;
@@ -24,15 +24,14 @@ namespace Player
         public static ScoreManager scoreManager { get; set; }
         private static readonly float startOffset = 5.0f;
 
+        private static bool gameEnd;
+
         private void Awake()
         {
             CurrentSec = 0f;
             CurrentBeat = 0f;
 
             AliveNoteControllers = new List<NoteControllerBase>();
-
-            //var scoreDirectory = Application.streamingAssetsPath + "/Scores";
-            //scoreManager = new ScoreManager(scoreDirectory + "/Barduckman_NORMAL.sus");
 
             foreach (var _noteProperty in scoreManager.noteProperties)
             {
@@ -58,8 +57,24 @@ namespace Player
 
         private void Update()
         {
-            CurrentSec = Time.timeSinceLevelLoad -startOffset;
-            CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
+            if (!gameEnd)
+            {
+                CurrentSec = Time.timeSinceLevelLoad - startOffset;
+                CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
+                if (AliveNoteControllers.Count == 0)
+                {
+                    gameEnd = true;
+                    StartCoroutine(GameUI.instance.ShowResult());
+                }
+                return;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                gameEnd = false;
+                AudioManager.instance.StopMusic();
+                SceneManager.LoadScene("MenuScene");
+            }
         }
 
     }

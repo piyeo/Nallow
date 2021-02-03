@@ -7,11 +7,47 @@ public class DifficultyMenuState : MenuStateBase
 {
 #pragma warning disable 0649
     [SerializeField]
-    private Text centerText, musicText;
+    private Text centerText, musicText1, musicText2;
 
     public static string selectedDifficulty;
 
     private Dictionary<int, string> difficultyIds = MenuContent.DifficultyIds;
+
+    private readonly float textWidth = 150;
+
+    private Vector3 musicText1Position, musicText2Position;
+
+    public override void Start()
+    {
+        countElements = difficultyIds.Count;
+        musicText1Position = musicText1.rectTransform.localPosition;
+        musicText2Position = musicText2.rectTransform.localPosition;
+        musicText1Position.x = 0;
+        musicText2Position.x = textWidth;
+        musicText2.rectTransform.localPosition = musicText2Position;
+        musicText1.rectTransform.localPosition = musicText1Position;
+    }
+
+    public void Update()
+    {
+        ScrollText();
+    }
+
+    private void ScrollText()
+    {
+        musicText1Position.x--;
+        musicText2Position.x--;
+        if (musicText1Position.x < -textWidth)
+        {
+            musicText1Position.x = textWidth;
+        }
+        if (musicText2Position.x < -textWidth)
+        {
+            musicText2Position.x = textWidth;
+        }
+        musicText1.rectTransform.localPosition = musicText1Position;
+        musicText2.rectTransform.localPosition = musicText2Position;
+    }
 
     public override void ShowText()
     {
@@ -24,7 +60,8 @@ public class DifficultyMenuState : MenuStateBase
             + " " + GameMenu.selectedMusic.GetDifficulty(centerDifficulty);
         bottomText.text = MenuContent.DifficultyIds[bottomIndex]
             + " " + GameMenu.selectedMusic.GetDifficulty(bottomDifficulty);
-        musicText.text = GameMenu.selectedMusic.GetTitle();
+        musicText1.text = GameMenu.selectedMusic.GetTitle();
+        musicText2.text = GameMenu.selectedMusic.GetTitle();
     }
 
     public override void ActivatePanel()
@@ -44,10 +81,5 @@ public class DifficultyMenuState : MenuStateBase
     {
         base.ResetPanelIndex();
         topIndex = difficultyIds.Count - 1;
-    }
-
-    public override void Start()
-    {
-        countElements = difficultyIds.Count;
     }
 }

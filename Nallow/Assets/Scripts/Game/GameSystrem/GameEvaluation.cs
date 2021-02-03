@@ -31,7 +31,6 @@ public class GameEvaluation : MonoBehaviour
 
     public static float currentPoints;
     public static int currentCombo;
-    public static int maxCombo;
     public static string currentJudge = "None";
     public static Dictionary<JudgementType, int> JudgementCounts =
         new Dictionary<JudgementType, int>();
@@ -47,7 +46,6 @@ public class GameEvaluation : MonoBehaviour
             .Count(x => x.noteType == NoteType.Long) * 2;
         currentPoints = 0f;
         currentCombo = 0;
-        maxCombo = 0;
         JudgementCounts[JudgementType.Perfect] = 0;
         JudgementCounts[JudgementType.Great] = 0;
         JudgementCounts[JudgementType.Good] = 0;
@@ -57,7 +55,6 @@ public class GameEvaluation : MonoBehaviour
 
     private void Update()
     {
-        maxCombo = Mathf.Max(currentCombo, maxCombo);
     }
 
     public static void Evaluation(JudgementType judgementType)
@@ -77,19 +74,34 @@ public class GameEvaluation : MonoBehaviour
 
         JudgementCounts[judgementType]++;
 
-        GameUI.JudgeAnimation();
+        GameUI.instance.JudgeAnimation();
 
-        if (judgementType == JudgementType.Miss) { return; }
+        if (judgementType == JudgementType.Miss || judgementType == JudgementType.Bad) { return; }
 
-        GameUI.ComboAnimation();
+        GameUI.instance.ComboAnimation();
 
         float comboRate = ComboRates.Where(x => x.Key <= currentCombo)
             .Last().Value;
         var addPoints = basePoints * difficultyRate /
             (allNotesCount * JudgementRates[judgementType] * comboRate);
         currentPoints += addPoints;
-        JudgementCounts[judgementType]++;
 
+    }
+
+    public static string GetResult()
+    {
+        if(JudgementCounts[JudgementType.Perfect] == allNotesCount)
+        {
+            return "ALL PERFECT";
+        }
+        else if (currentCombo == allNotesCount)
+        {
+            return "FULL COMBO";
+        }
+        else 
+        {
+            return "CLEAR";
+        }
     }
 
 }

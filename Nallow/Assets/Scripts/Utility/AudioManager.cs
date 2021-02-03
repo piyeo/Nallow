@@ -62,9 +62,13 @@ public static class AudioDictionary
 {
     public static Dictionary<string, int> SePairs = new Dictionary<string, int> {
         { "Tap", 0 },
-        { "Flick", 1 }
+        { "Flick", 1 },
+        { "GameEnd", 2},
+        { "Select", 3},
+        { "Change", 4}
     };
     public static Dictionary<string, int> BgmPairs= new Dictionary<string, int>{
-        { "Barduckman", 0 }
+        { "Barduckman", 0 },
+        { "Menu", 1 }
     };
 }

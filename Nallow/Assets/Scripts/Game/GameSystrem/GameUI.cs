@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Player;
 
 public class GameUI : MonoBehaviour
 {
 #pragma warning disable 0414
 #pragma warning disable 0649
-    [SerializeField] private Text pointsText;
-    [SerializeField] private Text comboText;
-    [SerializeField] private Text judgeText;
-    [SerializeField] private GameObject objComboValue;
-    [SerializeField] private GameObject objJudgeValue;
+    [SerializeField] private Text pointsText, comboText, judgeText;
+    [SerializeField] private Text JudgeResultText, ReturnText, ResultText;
+    [SerializeField] private GameObject objComboValue, objJudgeValue, resultPanel;
 
     private Text comboValueText;
     private RectTransform objComboValueRectTransform;
@@ -25,6 +24,8 @@ public class GameUI : MonoBehaviour
     private readonly string missColor = "#9D9D9D";
 
     private Color32 judgeColor;
+
+    public static GameUI instance;
 
     private Color GetJudgeColor(string colorCode)
     {
@@ -39,12 +40,14 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private static Sequence comboSequence;
-    private static Sequence judgeSequence;
+    private Sequence comboSequence;
+    private Sequence judgeSequence;
 
     private void Start()
     {
+        instance = this;
         comboValueText = objComboValue.GetComponent<Text>();
+        resultPanel.SetActive(false);
         pointsText.text = "score\n0";
         comboText.text = "";
         comboValueText.text = "";
@@ -69,6 +72,11 @@ public class GameUI : MonoBehaviour
     }
 
     private void Update()
+    {
+        showPlayingUI();
+    }
+
+    private void showPlayingUI()
     {
         switch (GameEvaluation.currentJudge)
         {
@@ -108,13 +116,30 @@ public class GameUI : MonoBehaviour
         pointsText.text = "score\n" + Mathf.Floor(GameEvaluation.currentPoints).ToString();
     }
 
-    public static void ComboAnimation()
+    public void ComboAnimation()
     {
         comboSequence.Restart();
     }
 
-    public static void JudgeAnimation()
+    public void JudgeAnimation()
     {
         judgeSequence.Restart();
+    }
+
+    public IEnumerator ShowResult()
+    {
+        yield return new WaitForSeconds(3.0f);
+        judgeText.text = "";
+        GameEvaluation.currentJudge = "None";
+        AudioManager.instance.PlaySE("GameEnd");
+        resultPanel.SetActive(true);
+        string perfect = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Perfect]);
+        string great = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Great]);
+        string good = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Good]);
+        string bad = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Bad]);
+        string miss = string.Format("{0:000}", GameEvaluation.JudgementCounts[JudgementType.Miss]);
+        JudgeResultText.text = string.Format(JudgeResultText.text,perfect, great, good, bad, miss);
+        ResultText.text = GameEvaluation.GetResult();
+        ReturnText.text = "画面タップで戻る";
     }
 }

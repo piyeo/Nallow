@@ -18,7 +18,6 @@ namespace Player
         public static float CurrentSec = 0f;
         public static float CurrentBeat = 0f;
 
-        public static int tapTimingValue = 0;
         public static string playingBGM;
 
         //判定されていないノーツ
@@ -33,6 +32,16 @@ namespace Player
         {
             CurrentSec = 0f;
             CurrentBeat = 0f;
+
+            if(GameManager.handValue == HandEnum.Left)
+            {
+                var position = gameZone.transform.localPosition;
+                position.x *= -1;
+                gameZone.transform.localPosition = position;
+                var rotation = gameZone.transform.localEulerAngles;
+                rotation.z *= -1;
+                gameZone.transform.localEulerAngles = rotation;
+            }
 
             AliveNoteControllers = new List<NoteControllerBase>();
 

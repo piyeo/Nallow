@@ -27,7 +27,7 @@ public class ModeMenuState : MenuStateBase
 
     public override void DeactivatePanel()
     {
-        //タイトルに戻るため
+        GameMenu.selectedMode = centerIndex;
         panels.SetActive(false);
     }
 

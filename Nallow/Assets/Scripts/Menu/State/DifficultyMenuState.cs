@@ -11,8 +11,6 @@ public class DifficultyMenuState : MenuStateBase
     [SerializeField] private Text musicText1;
     [SerializeField] private Text musicText2;
 
-    public static string selectedDifficulty;
-
     private Dictionary<int, string> difficultyIds = MenuContent.DifficultyIds;
 
     private readonly float textWidth = 150;
@@ -75,7 +73,7 @@ public class DifficultyMenuState : MenuStateBase
 
     public override void DeactivatePanel()
     {
-        selectedDifficulty = difficultyIds[centerIndex];
+        GameMenu.selectedDifficulty = difficultyIds[centerIndex];
         panels.SetActive(false);
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Player;
 
-public class SettingState : MenuStateBase
+public class SettingMenuState : MenuStateBase
 {
 #pragma warning disable 0649
     [Space(10)]
@@ -16,10 +16,14 @@ public class SettingState : MenuStateBase
     private Text tapTimingValueText;
 
     public override void ShowText() {
-        tapTimingValueText.text = PlayerController.tapTimingValue.ToString();
+        tapTimingValueText.text = GameManager.tapTimingValue.ToString();
+
     }
     public override void ActivatePanel() {
+        GameMenu.menuState = GameMenu.MenuState.Setting;
+        panels.SetActive(true);
     }
     public override void DeactivatePanel() {
+        panels.SetActive(false);
     }
 }

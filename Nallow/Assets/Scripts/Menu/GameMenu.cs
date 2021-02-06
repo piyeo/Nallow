@@ -12,31 +12,40 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private MusicDataBase musicDataBase;
     [SerializeField]
-    private GameObject modePanel, musicPanel, difficultyPanel;
+    private GameObject modePanel, musicPanel, difficultyPanel, settingPanels;
+    [SerializeField]
+    private GameObject variableButtons, constantButtons;
 
     public static GameMenu instance;
     public static MenuContent menuContent;
     public static Music selectedMusic;
     public static MenuState menuState;
     public static int musicCenterIndexBuffer, musicTopIndexBuffer;
+    public static int selectedMode;
     public static string selectedDifficulty;
 
     private ModeMenuState modeMenuState;
     private MusicMenuState musicMenuState;
     private DifficultyMenuState difficultyMenuState;
+    private SettingMenuState settingMenuState;
 
     void Start()
     {
         instance = this;
 
         menuContent = new MenuContent();
+        if(GameManager.handValue == HandEnum.Left)
+        {
+            LeftHandSwitch();
+        }
+        else if(GameManager.handValue == HandEnum.Right)
+        {
+            RightHandSwitch();
+        }
         modeMenuState = modePanel.GetComponent<ModeMenuState>();
         musicMenuState = musicPanel.GetComponent<MusicMenuState>();
         difficultyMenuState = difficultyPanel.GetComponent<DifficultyMenuState>();
-
-        modeMenuState.DeactivatePanel();
-        musicMenuState.DeactivatePanel();
-        difficultyMenuState.DeactivatePanel();
+        settingMenuState = settingPanels.GetComponent<SettingMenuState>();
 
         AudioManager.instance.PlayBGM("Menu");
 
@@ -59,7 +68,45 @@ public class GameMenu : MonoBehaviour
             case MenuState.Difficulty:
                 difficultyMenuState.ShowText();
                 break;
+            case MenuState.Setting:
+                settingMenuState.ShowText();
+                break;
         }
+    }
+
+    void LoadScore()
+    {
+        int i = 0;
+        foreach (var x in menuContent.scoreLoaders)
+        {
+            if (x.MetaData["TITLE"] == selectedMusic.GetTitle() &&
+            x.MetaData["PLAYLEVEL"] == selectedDifficulty)
+            {
+                PlayerController.scoreManager = new ScoreManager(menuContent.scorePaths[i]);
+                PlayerController.playingBGM = x.MetaData["TITLE"];
+            }
+            i++;
+        }
+    }
+
+    public void LeftHandSwitch()
+    {
+        var _localScale = variableButtons.GetComponent<RectTransform>().localScale;
+        _localScale.x = -1;
+        variableButtons.GetComponent<RectTransform>().localScale = _localScale;
+        _localScale = constantButtons.GetComponent<RectTransform>().localScale;
+        _localScale.x = -1;
+        constantButtons.GetComponent<RectTransform>().localScale = _localScale;
+    }
+
+    public void RightHandSwitch()
+    {
+        var _localScale = variableButtons.GetComponent<RectTransform>().localScale;
+        _localScale.x = 1;
+        variableButtons.GetComponent<RectTransform>().localScale = _localScale;
+        _localScale = constantButtons.GetComponent<RectTransform>().localScale;
+        _localScale.x = 1;
+        constantButtons.GetComponent<RectTransform>().localScale = _localScale;
     }
 
     public void Select()
@@ -69,7 +116,15 @@ public class GameMenu : MonoBehaviour
         {
             case MenuState.Mode:
                 modeMenuState.DeactivatePanel();
-                musicMenuState.ActivatePanel();
+                if (MenuContent.ModeIds[selectedMode] == "Single Play")
+                {
+                    musicMenuState.ActivatePanel();
+                }
+                else if(MenuContent.ModeIds[selectedMode] == "Setting")
+                {
+                    variableButtons.SetActive(false);
+                    settingMenuState.ActivatePanel();
+                }
                 break;
             case MenuState.Music:
                 musicMenuState.DeactivatePanel();
@@ -99,6 +154,11 @@ public class GameMenu : MonoBehaviour
             case MenuState.Difficulty:
                 difficultyMenuState.DeactivatePanel();
                 musicMenuState.ActivatePanel();
+                break;
+            case MenuState.Setting:
+                variableButtons.SetActive(true);
+                settingMenuState.DeactivatePanel();
+                modeMenuState.ActivatePanel();
                 break;
         }
     }
@@ -136,26 +196,12 @@ public class GameMenu : MonoBehaviour
         }
     }
 
-    void LoadScore()
-    {
-        int i = 0;
-        foreach (var x in menuContent.scoreLoaders)
-        {
-            if (x.MetaData["TITLE"] == selectedMusic.GetTitle() &&
-            x.MetaData["PLAYLEVEL"] == DifficultyMenuState.selectedDifficulty)
-            {
-                PlayerController.scoreManager = new ScoreManager(menuContent.scorePaths[i]);
-                PlayerController.playingBGM = x.MetaData["TITLE"];
-            }
-            i++;
-        }
-    }
-
     public enum MenuState
     {
         Mode,
         Music,
-        Difficulty
+        Difficulty,
+        Setting
     }
 
 }

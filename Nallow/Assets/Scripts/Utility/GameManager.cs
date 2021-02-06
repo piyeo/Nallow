@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public HandEnum handValue;
+    public static HandEnum handValue;
+    public static int tapTimingValue;
 
     void Awake()
     {
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         handValue = HandEnum.Right;
+        tapTimingValue = 0;
     }
 }
 

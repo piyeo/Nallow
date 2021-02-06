@@ -51,7 +51,7 @@ public class JudgementManager : MonoBehaviour
 
         var noteSec = nearest.noteProperty.secBegin;
         var differenceSec = Mathf.Abs(noteSec - PlayerController.CurrentSec
-            + (PlayerController.tapTimingValue * 0.1f));
+            + (GameManager.tapTimingValue * 0.1f));
         nearest.OnTapDown(GetJudgementType(differenceSec));
     }
 
@@ -72,7 +72,7 @@ public class JudgementManager : MonoBehaviour
 
         var noteSec = processed.noteProperty.secEnd;
         var differenceSec = Mathf.Abs(noteSec - PlayerController.CurrentSec
-            + (PlayerController.tapTimingValue * 0.1f));
+            + (GameManager.tapTimingValue * 0.1f));
         processed.OnTapUp(GetJudgementType(differenceSec));
     }
 

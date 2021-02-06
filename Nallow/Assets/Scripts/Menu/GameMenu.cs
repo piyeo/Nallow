@@ -12,8 +12,6 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private MusicDataBase musicDataBase;
     [SerializeField]
-    private AudioManager audioManager;
-    [SerializeField]
     private GameObject modePanel, musicPanel, difficultyPanel;
 
     public static GameMenu instance;
@@ -39,11 +37,6 @@ public class GameMenu : MonoBehaviour
         modeMenuState.DeactivatePanel();
         musicMenuState.DeactivatePanel();
         difficultyMenuState.DeactivatePanel();
-
-        if (AudioManager.instance == null)
-        {
-            Instantiate(audioManager);
-        }
 
         AudioManager.instance.PlayBGM("Menu");
 
@@ -152,6 +145,7 @@ public class GameMenu : MonoBehaviour
             x.MetaData["PLAYLEVEL"] == DifficultyMenuState.selectedDifficulty)
             {
                 PlayerController.scoreManager = new ScoreManager(menuContent.scorePaths[i]);
+                PlayerController.playingBGM = x.MetaData["TITLE"];
             }
             i++;
         }

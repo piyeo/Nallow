@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class MusicMenuState : MenuStateBase
 {
 #pragma warning disable 0649
+    [Space(10)]
     [SerializeField]
-    private Text titleText,difficultyText;
+    private Text titleText;
+    [SerializeField]
+    private Text difficultyText;
     [SerializeField]
     private Image musicJacket;
 

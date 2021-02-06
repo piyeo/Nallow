@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class MenuStateBase : MonoBehaviour
 {
 #pragma warning disable 0649
+    [Header("CommonField")]
     [SerializeField]
     protected GameObject panels;
     [SerializeField]
@@ -14,7 +13,6 @@ public abstract class MenuStateBase : MonoBehaviour
     protected MusicDataBase musicDataBase;
     protected int topIndex, centerIndex, bottomIndex;
     protected int countElements;
-
     public abstract void ShowText();
     public abstract void ActivatePanel();
     public abstract void DeactivatePanel();
@@ -55,5 +53,4 @@ public abstract class MenuStateBase : MonoBehaviour
     public virtual void Start()
     {
     }
-
 }

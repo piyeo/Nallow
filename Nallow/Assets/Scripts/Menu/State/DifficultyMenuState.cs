@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class DifficultyMenuState : MenuStateBase
 {
 #pragma warning disable 0649
-    [SerializeField]
-    private Text centerText, musicText1, musicText2;
+    [Space(10)]
+    [SerializeField] private Text centerText;
+    [SerializeField] private Text musicText1;
+    [SerializeField] private Text musicText2;
 
     public static string selectedDifficulty;
 

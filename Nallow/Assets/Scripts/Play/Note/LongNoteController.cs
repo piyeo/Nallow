@@ -33,14 +33,14 @@ namespace Note
             }
             else
             {
-                positionBegin.y = (noteProperty.beatBegin - PlayerController.CurrentBeat) * PlayerController.ScrollSpeed;
+                positionBegin.y = (noteProperty.beatBegin - PlayerController.CurrentBeat) * PlayerController.NoteSpeed;
             }
             objBegin.transform.localPosition = positionBegin;
 
             Vector2 positionEnd = new Vector2();
             if (noteProperty.lane == 0) { positionEnd.x = -1.3f; }
             if (noteProperty.lane == 1) { positionEnd.x = 1.3f; }
-            positionEnd.y = (noteProperty.beatEnd - PlayerController.CurrentBeat) * PlayerController.ScrollSpeed;
+            positionEnd.y = (noteProperty.beatEnd - PlayerController.CurrentBeat) * PlayerController.NoteSpeed;
             objEnd.transform.localPosition = positionEnd;
 
             Vector2 positionTrail = (positionBegin + positionEnd) / 2f;

@@ -13,10 +13,11 @@ public class SettingMenuState : MenuStateBase
     [SerializeField]
     private Button RightHandButton;
     [SerializeField]
-    private Text tapTimingValueText;
+    private Text tapTimingValueText,noteSpeedValueText;
 
     public override void ShowText() {
         tapTimingValueText.text = GameManager.tapTimingValue.ToString();
+        noteSpeedValueText.text = PlayerController.NoteSpeed.ToString();
 
     }
     public override void ActivatePanel() {

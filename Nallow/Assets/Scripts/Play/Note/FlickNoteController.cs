@@ -28,7 +28,7 @@ namespace Note
             }
             else
             {
-                position.y = (noteProperty.beatBegin - PlayerController.CurrentBeat) * PlayerController.ScrollSpeed;
+                position.y = (noteProperty.beatBegin - PlayerController.CurrentBeat) * PlayerController.NoteSpeed;
             }
             transform.localPosition = position;
         }

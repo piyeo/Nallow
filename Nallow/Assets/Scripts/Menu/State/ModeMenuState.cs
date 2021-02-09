@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ModeMenuState : MenuStateBase
 {
 #pragma warning disable 0649
+    [Space(10)]
     [SerializeField]
     private Text centerText;
     private Dictionary<int, string> modeIds = MenuContent.ModeIds;
@@ -26,7 +27,7 @@ public class ModeMenuState : MenuStateBase
 
     public override void DeactivatePanel()
     {
-        //タイトルに戻るため
+        GameMenu.selectedMode = centerIndex;
         panels.SetActive(false);
     }
 

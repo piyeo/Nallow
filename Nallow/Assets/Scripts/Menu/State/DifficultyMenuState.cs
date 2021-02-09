@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class DifficultyMenuState : MenuStateBase
 {
 #pragma warning disable 0649
-    [SerializeField]
-    private Text centerText, musicText1, musicText2;
-
-    public static string selectedDifficulty;
+    [Space(10)]
+    [SerializeField] private Text centerText;
+    [SerializeField] private Text musicText1;
+    [SerializeField] private Text musicText2;
 
     private Dictionary<int, string> difficultyIds = MenuContent.DifficultyIds;
 
@@ -73,7 +73,7 @@ public class DifficultyMenuState : MenuStateBase
 
     public override void DeactivatePanel()
     {
-        selectedDifficulty = difficultyIds[centerIndex];
+        GameMenu.selectedDifficulty = difficultyIds[centerIndex];
         panels.SetActive(false);
     }
 

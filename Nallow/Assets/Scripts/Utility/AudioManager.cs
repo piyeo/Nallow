@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public AudioSource[] seClips;
     public AudioSource[] bgmClips;
+    public AudioMixer audioMixer;
+
+    public float BgmValue;
+    public float SeValue;
 
     public static AudioManager instance;
 
@@ -56,6 +61,12 @@ public class AudioManager : MonoBehaviour
             bgmClips[i].Stop();
         }
     }
+
+    public float ConvertVolumeToDb(float volume)
+    {
+        return Mathf.Clamp(Mathf.Log10(Mathf.Clamp(volume, 0f, 1f)) * 20f, -80f, 0f);
+    }
+
 }
 
 public static class AudioDictionary
@@ -68,7 +79,7 @@ public static class AudioDictionary
         { "Change", 4}
     };
     public static Dictionary<string, int> BgmPairs= new Dictionary<string, int>{
-        { "Barduckman", 0 },
+        { "バーダックマン", 0 },
         { "Menu", 1 }
     };
 }

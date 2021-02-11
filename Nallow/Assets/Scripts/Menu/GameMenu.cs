@@ -145,7 +145,9 @@ public class GameMenu : MonoBehaviour
         switch (menuState)
         {
             case MenuState.Mode:
-                //タイトル画面
+                modeMenuState.DeactivatePanel();
+                AudioManager.instance.StopMusic();
+                SceneManager.LoadScene("TitleScene");
                 break;
             case MenuState.Music:
                 musicMenuState.DeactivatePanel();

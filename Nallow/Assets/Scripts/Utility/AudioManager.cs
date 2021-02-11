@@ -9,9 +9,6 @@ public class AudioManager : MonoBehaviour
     public AudioSource[] bgmClips;
     public AudioMixer audioMixer;
 
-    public float BgmValue;
-    public float SeValue;
-
     public static AudioManager instance;
 
     void Awake()
@@ -80,6 +77,7 @@ public static class AudioDictionary
     };
     public static Dictionary<string, int> BgmPairs= new Dictionary<string, int>{
         { "バーダックマン", 0 },
-        { "Menu", 1 }
+        { "Menu", 1 },
+        { "Title", 2 }
     };
 }

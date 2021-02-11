@@ -71,16 +71,28 @@ namespace Player
         {
             if (!gameEnd)
             {
-                CurrentSec = Time.timeSinceLevelLoad - startOffset;
-                CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
-                if (AliveNoteControllers.Count == 0)
-                {
-                    gameEnd = true;
-                    StartCoroutine(GameUI.instance.ShowResult());
-                }
-                return;
+                ProgressGame();
             }
+            else
+            {
+                GetScreenTapped();
+            }
+        }
 
+        private void ProgressGame()
+        {
+            CurrentSec = Time.timeSinceLevelLoad - startOffset;
+            CurrentBeat = ScoreManager.ToBeat(CurrentSec, scoreManager.tempo);
+            if (AliveNoteControllers.Count == 0)
+            {
+                gameEnd = true;
+                StartCoroutine(GameUI.instance.ShowResult());
+            }
+            return;
+        }
+
+        private void GetScreenTapped()
+        {
             if (Input.GetMouseButton(0))
             {
                 gameEnd = false;
